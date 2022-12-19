@@ -11,8 +11,7 @@ class CubicGUI:
         if self.win == None:
             return 0 
 
-        # Events
-        
+        # Events  
         events = sdl2.ext.get_events()
 
         for event in events:
