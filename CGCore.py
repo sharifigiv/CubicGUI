@@ -1,24 +1,27 @@
 import sys
-import sdl2.ext
+import ctypes
+import sdl2
 
 class CubicGUI:
     def __init__(self):
-        sdl2.ext.init()
+        sdl2.SDL_Init(sdl2.SDL_INIT_VIDEO)
 
         self.win = None
-
+        self.running = True
+        
     def update(self):
         if self.win == None:
             return 0 
 
         # Events  
-        events = sdl2.ext.get_events()
+        event = sdl2.SDL_Event()
 
-        for event in events:
+        while sdl2.SDL_PollEvent(ctypes.byref(event)) != 0:
             if event.type == sdl2.SDL_QUIT:
-                self.win.quit()
+                sdl2.SDL_DestroyWindow(self.win.w)
+                sdl2.SDL_Quit()
 
-        self.win.w.refresh()
+                self.running = False
 
     def createWin(self, x, y, width, height, title):
         self.win = Window(x, y, width, height, title) 
@@ -33,10 +36,7 @@ class Window:
 
         self.title = title
 
-        self.w = sdl2.ext.Window(self.title, size=(self.width, self.height), position=(self.x, self.y))
-
-    def show(self):
-        self.w.show()
+        self.w = sdl2.SDL_CreateWindow(bytes(self.title, 'utf-8'), self.x, self.y, self.width, self.height, sdl2.SDL_WINDOW_SHOWN)
 
     def quit(self):
-        sdl2.ext.quit()
+        sdl2.SDL_DestroyWindow(self.w)
