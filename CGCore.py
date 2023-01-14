@@ -62,9 +62,9 @@ class Button:
         self.height = height
 
         self.bg = [255, 255, 255, 255]
-        self.fg = [255, 255, 255, 255]
+        self.fg = [0, 0, 0, 255]
 
-        self.border = 2 
+        self.borderWidth = 5
         self.borderColor = [235, 64, 52, 255]
 
         self.status = True
@@ -88,8 +88,15 @@ class Button:
         sdl2.SDL_RenderClear(self.rn)
         sdl2.SDL_SetRenderDrawColor(self.rn, self.bg[0], self.bg[1], self.bg[2], self.bg[3])
         
-        sdl2.SDL_RenderDrawRect(self.rn, self.rect)
+        sdl2.SDL_RenderFillRect(self.rn, self.rect)
         sdl2.SDL_RenderCopy(self.rn, self.rntexture , None, self.rectText)
+
+        sdl2.SDL_SetRenderDrawColor(self.rn, self.borderColor[0], self.borderColor[1], self.borderColor[2], self.borderColor[3])
+
+        for i in range(1, self.borderWidth + 1):
+            rectBorder = sdl2.SDL_Rect(self.x - i, self.y - i, self.width + i * 2 , self.height + i * 2)
+
+            sdl2.SDL_RenderDrawRect(self.rn, rectBorder)
 
         sdl2.SDL_SetRenderDrawColor(self.rn, 0, 0, 0, 0);
         sdl2.SDL_RenderPresent(self.rn)    
