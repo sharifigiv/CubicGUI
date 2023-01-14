@@ -20,19 +20,34 @@ class CubicGUI:
         event = sdl2.SDL_Event()
 
         while sdl2.SDL_PollEvent(ctypes.byref(event)) != 0:
+            mouseX, mouseY = ctypes.c_int(0), ctypes.c_int(0) 
+            mouse = sdl2.mouse.SDL_GetMouseState(ctypes.byref(mouseX), ctypes.byref(mouseY))
+            mousePoint = sdl2.SDL_Point(mouseX, mouseY)
+
             if event.type == sdl2.SDL_QUIT:
                 sdl2.SDL_DestroyWindow(self.win.w)
                 sdl2.SDL_Quit()
 
                 self.running = False
+             
+            for button in self.buttons:
+                if sdl2.SDL_PointInRect(mousePoint, button.rect):
+                    if event.type == sdl2.SDL_MOUSEBUTTONDOWN:
+                        if button.status == True:
+                            button.command()
+
+                    else:
+                        button.hovering = True
+                else:
+                    button.hovering = False
 
     def createWin(self, x, y, width, height, title):
         self.win = Window(x, y, width, height, title)
 
         self.s = sdl2.SDL_CreateRenderer(self.win.w, -1, sdl2.SDL_RENDERER_ACCELERATED)
 
-    def createButton(self, x, y, width, height, text):
-        b = Button(x, y, width, height, text, self.s)
+    def createButton(self, x, y, width, height, text, command):
+        b = Button(x, y, width, height, text, self.s, command)
 
         self.buttons.append(b)
 
@@ -54,7 +69,7 @@ class Window:
         sdl2.SDL_DestroyWindow(self.w)
 
 class Button:
-    def __init__(self, x, y, width, height, text, rn):
+    def __init__(self, x, y, width, height, text, rn, command):
         self.x = x
         self.y = y 
 
@@ -64,16 +79,19 @@ class Button:
         self.bg = [255, 255, 255, 255]
         self.fg = [0, 0, 0, 255]
 
-        self.border = 2 
+        self.borderWidth = 5
         self.borderColor = [235, 64, 52, 255]
-
-        self.status = True
-        self.rn = rn
-
-        self.rect = sdl2.SDL_Rect(self.x, self.y, self.width, self.height)
 
         self.fontSize = 16
         self.text = text
+
+        self.rect = sdl2.SDL_Rect(self.x, self.y, self.width, self.height)
+
+        self.status = True
+        self.hovering = False
+        self.rn = rn
+
+        self.command = command
 
         self.renderText()
 
@@ -90,6 +108,13 @@ class Button:
         
         sdl2.SDL_RenderFillRect(self.rn, self.rect)
         sdl2.SDL_RenderCopy(self.rn, self.rntexture , None, self.rectText)
+
+        sdl2.SDL_SetRenderDrawColor(self.rn, self.borderColor[0], self.borderColor[1], self.borderColor[2], self.borderColor[3])
+
+        for i in range(1, self.borderWidth + 1):
+            rectBorder = sdl2.SDL_Rect(self.x - i, self.y - i, self.width + i * 2 , self.height + i * 2)
+
+            sdl2.SDL_RenderDrawRect(self.rn, rectBorder)
 
         sdl2.SDL_SetRenderDrawColor(self.rn, 0, 0, 0, 0);
         sdl2.SDL_RenderPresent(self.rn)    
