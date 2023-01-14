@@ -7,17 +7,17 @@ app = CubicGUI()
 app.createWin(100, 100, 1080, 720, 'TEST')
 
 B = app.createButton(100, 100, 150, 500, 'ali', testcommand)
-B.radius = 20
+B1 = app.createButton(500, 100, 50, 50, 'gazaz')
+B2 = app.createButton(700, 300, 50, 50, 'akhaz')
 
 while app.running:
-
-    app.update()
     if B.hovering:
         B.borderWidth = 20
 
     else:
         B.borderWidth = 0
 
-    B.show()
+    B2.showing = False
+    app.update()
 
 print('!')
