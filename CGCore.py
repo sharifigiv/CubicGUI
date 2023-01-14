@@ -20,19 +20,34 @@ class CubicGUI:
         event = sdl2.SDL_Event()
 
         while sdl2.SDL_PollEvent(ctypes.byref(event)) != 0:
+            mouseX, mouseY = ctypes.c_int(0), ctypes.c_int(0) 
+            mouse = sdl2.mouse.SDL_GetMouseState(ctypes.byref(mouseX), ctypes.byref(mouseY))
+            mousePoint = sdl2.SDL_Point(mouseX, mouseY)
+
             if event.type == sdl2.SDL_QUIT:
                 sdl2.SDL_DestroyWindow(self.win.w)
                 sdl2.SDL_Quit()
 
                 self.running = False
+             
+            for button in self.buttons:
+                if sdl2.SDL_PointInRect(mousePoint, button.rect):
+                    if event.type == sdl2.SDL_MOUSEBUTTONDOWN:
+                        if button.status == True:
+                            button.command()
+
+                    else:
+                        button.hovering = True
+                else:
+                    button.hovering = False
 
     def createWin(self, x, y, width, height, title):
         self.win = Window(x, y, width, height, title)
 
         self.s = sdl2.SDL_CreateRenderer(self.win.w, -1, sdl2.SDL_RENDERER_ACCELERATED)
 
-    def createButton(self, x, y, width, height, text):
-        b = Button(x, y, width, height, text, self.s)
+    def createButton(self, x, y, width, height, text, command):
+        b = Button(x, y, width, height, text, self.s, command)
 
         self.buttons.append(b)
 
@@ -54,7 +69,7 @@ class Window:
         sdl2.SDL_DestroyWindow(self.w)
 
 class Button:
-    def __init__(self, x, y, width, height, text, rn):
+    def __init__(self, x, y, width, height, text, rn, command):
         self.x = x
         self.y = y 
 
@@ -67,13 +82,16 @@ class Button:
         self.borderWidth = 5
         self.borderColor = [235, 64, 52, 255]
 
-        self.status = True
-        self.rn = rn
+        self.fontSize = 16
+        self.text = text
 
         self.rect = sdl2.SDL_Rect(self.x, self.y, self.width, self.height)
 
-        self.fontSize = 16
-        self.text = text
+        self.status = True
+        self.hovering = False
+        self.rn = rn
+
+        self.command = command
 
         self.renderText()
 
