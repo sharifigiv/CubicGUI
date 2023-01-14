@@ -18,11 +18,13 @@ class CubicGUI:
     def update(self):
         # Events  
         event = sdl2.SDL_Event()
-
+        
         while sdl2.SDL_PollEvent(ctypes.byref(event)) != 0:
             mouseX, mouseY = ctypes.c_int(0), ctypes.c_int(0) 
             mouse = sdl2.mouse.SDL_GetMouseState(ctypes.byref(mouseX), ctypes.byref(mouseY))
             mousePoint = sdl2.SDL_Point(mouseX, mouseY)
+
+            sdl2.SDL_RenderClear(self.s)
 
             if event.type == sdl2.SDL_QUIT:
                 sdl2.SDL_DestroyWindow(self.win.w)
@@ -31,9 +33,9 @@ class CubicGUI:
                 self.running = False
              
             for button in self.buttons:
-                if sdl2.SDL_PointInRect(mousePoint, button.rect):
+                if sdl2.SDL_PointInRect(mousePoint, button.rect) and button.showing:
                     if event.type == sdl2.SDL_MOUSEBUTTONDOWN:
-                        if button.status == True:
+                        if button.status:
                             button.command()
 
                     else:
@@ -41,12 +43,17 @@ class CubicGUI:
                 else:
                     button.hovering = False
 
+                if button.showing:
+                    button.draw()
+            sdl2.SDL_RenderPresent(self.s) 
+
+
     def createWin(self, x, y, width, height, title):
         self.win = Window(x, y, width, height, title)
 
         self.s = sdl2.SDL_CreateRenderer(self.win.w, -1, sdl2.SDL_RENDERER_ACCELERATED)
 
-    def createButton(self, x, y, width, height, text, command):
+    def createButton(self, x, y, width, height, text, command=print):
         b = Button(x, y, width, height, text, self.s, command)
 
         self.buttons.append(b)
@@ -70,6 +77,8 @@ class Window:
 
 class Button:
     def __init__(self, x, y, width, height, text, rn, command):
+        self.showing = True
+
         self.x = x
         self.y = y 
 
@@ -102,8 +111,7 @@ class Button:
         self.rntexture = sdl2.SDL_CreateTextureFromSurface(self.rn, surfaceText)
         self.rectText = sdl2.SDL_Rect(self.x + ((self.width - surfaceText.contents.w) // 2), self.y + ((self.height - surfaceText.contents.h) // 2), surfaceText.contents.w, surfaceText.contents.h)
 
-    def show(self):
-        sdl2.SDL_RenderClear(self.rn)
+    def draw(self):
         sdl2.SDL_SetRenderDrawColor(self.rn, self.bg[0], self.bg[1], self.bg[2], self.bg[3])
         
         sdl2.SDL_RenderFillRect(self.rn, self.rect)
@@ -117,4 +125,3 @@ class Button:
             sdl2.SDL_RenderDrawRect(self.rn, rectBorder)
 
         sdl2.SDL_SetRenderDrawColor(self.rn, 0, 0, 0, 0);
-        sdl2.SDL_RenderPresent(self.rn)    
