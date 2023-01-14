@@ -1,10 +1,12 @@
 import sys
 import ctypes
 import sdl2
+import sdl2.sdlttf
 
 class CubicGUI:
     def __init__(self):
         sdl2.SDL_Init(sdl2.SDL_INIT_VIDEO)
+        sdl2.sdlttf.TTF_Init()
 
         self.win = None
         self.s = sdl2.SDL_Renderer()
@@ -25,10 +27,12 @@ class CubicGUI:
                 self.running = False
 
     def createWin(self, x, y, width, height, title):
-        self.win = Window(x, y, width, height, title) 
+        self.win = Window(x, y, width, height, title)
 
-    def createButton(self, x, y, width, height):
-        b = Button(x, y, width, height, self.s)
+        self.s = sdl2.SDL_CreateRenderer(self.win.w, -1, sdl2.SDL_RENDERER_ACCELERATED)
+
+    def createButton(self, x, y, width, height, text):
+        b = Button(x, y, width, height, text, self.s)
 
         self.buttons.append(b)
 
@@ -50,22 +54,42 @@ class Window:
         sdl2.SDL_DestroyWindow(self.w)
 
 class Button:
-    def __init__(self, x, y, width, height , rn):
+    def __init__(self, x, y, width, height, text, rn):
         self.x = x
         self.y = y 
 
         self.width = width
         self.height = height
 
-        self.bg = ()
+        self.bg = [255, 255, 255, 255]
+        self.fg = [255, 255, 255, 255]
 
-        self.border = 0 
-        self.borderColor = (0, 0, 0, 0)
-
-        self.radius = 5 
+        self.border = 2 
+        self.borderColor = [235, 64, 52, 255]
 
         self.status = True
+        self.rn = rn
+
+        self.rect = sdl2.SDL_Rect(self.x, self.y, self.width, self.height)
+
+        self.fontSize = 16
+        self.text = text
+
+        self.renderText()
+
+    def renderText(self):
+        self.font = sdl2.sdlttf.TTF_OpenFont(str.encode("assets/fonts/font.ttf"), self.fontSize)
+        surfaceText = sdl2.sdlttf.TTF_RenderText_Blended(self.font, str.encode(self.text), sdl2.SDL_Color(self.fg[0], self.fg[1], self.fg[2]))
+        
+        self.rntexture = sdl2.SDL_CreateTextureFromSurface(self.rn, surfaceText)
+        self.rectText = sdl2.SDL_Rect(self.x + ((self.width - surfaceText.contents.w) // 2), self.y + ((self.height - surfaceText.contents.h) // 2), surfaceText.contents.w, surfaceText.contents.h)
 
     def show(self):
-        # SDL 2 code
-        pass
+        sdl2.SDL_RenderClear(self.rn)
+        sdl2.SDL_SetRenderDrawColor(self.rn, self.bg[0], self.bg[1], self.bg[2], self.bg[3])
+        
+        sdl2.SDL_RenderDrawRect(self.rn, self.rect)
+        sdl2.SDL_RenderCopy(self.rn, self.rntexture , None, self.rectText)
+
+        sdl2.SDL_SetRenderDrawColor(self.rn, 0, 0, 0, 0);
+        sdl2.SDL_RenderPresent(self.rn)    
