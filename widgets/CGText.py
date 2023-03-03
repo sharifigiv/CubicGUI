@@ -20,7 +20,7 @@ class Text:
         surfaceText = sdl2.sdlttf.TTF_RenderText_Blended(self.font, str.encode(self.text), sdl2.SDL_Color(self.fg[0], self.fg[1], self.fg[2]))
         
         self.rntexture = sdl2.SDL_CreateTextureFromSurface(self.rn, surfaceText)
-        self.rectText = sdl2.SDL_Rect(self.x + (surfaceText.contents.w // 2), self.y + (surfaceText.contents.h // 2), surfaceText.contents.w, surfaceText.contents.h)
+        self.rectText = sdl2.SDL_Rect(self.x - surfaceText.contents.w // 2, self.y - surfaceText.contents.h // 2, surfaceText.contents.w, surfaceText.contents.h)
 
     def draw(self):
         sdl2.SDL_SetRenderDrawColor(self.rn, self.fg[0], self.fg[1], self.fg[2], self.fg[3])
