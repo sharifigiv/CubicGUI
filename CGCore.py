@@ -97,10 +97,10 @@ class CubicGUI:
 
         return i    
 
-    def drawRectangle(self, x: int, y: int, width: int, height: int, color: list):
+    def drawRectangle(self, x: int, y: int, width: int, height: int, color: list, Fillness: bool):
         """Draw a rectangle"""
 
-        r = widgets.CGShape.Rectangle(x, y, width, height, color, self.s)
+        r = widgets.CGShape.Rectangle(x, y, width, height, color, Fillness, self.s)
         self.shapes.append(r)
 
         return r
