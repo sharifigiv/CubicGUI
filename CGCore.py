@@ -3,7 +3,7 @@ import ctypes
 import sdl2
 import sdl2.sdlttf
 
-import widgets.CGWindow, widgets.CGButton, widgets.CGText, widgets.CGImage, widgets.CGEntry
+import widgets.CGWindow, widgets.CGButton, widgets.CGText, widgets.CGImage, widgets.CGEntry, widgets.CGShape
 
 class CubicGUI:
     def __init__(self):
