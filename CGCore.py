@@ -34,6 +34,10 @@ class CubicGUI:
                 sdl2.SDL_Quit()
 
                 self.running = False
+
+            for text in self.texts:
+                if text.showing:
+                    text.draw()
              
             for button in self.buttons:
                 if sdl2.SDL_PointInRect(mousePoint, button.rect) and button.showing:
@@ -48,8 +52,8 @@ class CubicGUI:
 
                 if button.showing:
                     button.draw()
-            sdl2.SDL_RenderPresent(self.s) 
 
+            sdl2.SDL_RenderPresent(self.s) 
 
     def createWin(self, x, y, width, height, title):
         self.win = widgets.CGWindow.Window(x, y, width, height, title)
@@ -63,7 +67,7 @@ class CubicGUI:
         return b
 
     def createText(self, x, y, text, color, fontsize):
-        t = widgets.CGText.Text(x, y, fontsize, color, fontsize, self.s)
+        t = widgets.CGText.Text(x, y, text, color, fontsize, self.s)
         self.texts.append(t)
 
         return t
