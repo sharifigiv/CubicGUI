@@ -49,4 +49,4 @@ class Button:
 
             sdl2.SDL_RenderDrawRect(self.rn, rectBorder)
 
-        sdl2.SDL_SetRenderDrawColor(self.rn, 0, 0, 0, 0);
+        sdl2.SDL_SetRenderDrawColor(self.rn, 0, 0, 0, 0)
