@@ -54,6 +54,10 @@ class CubicGUI:
                 if button.showing:
                     button.draw()
 
+            for image in self.images:
+                if image.showing:
+                    image.draw()
+
             sdl2.SDL_RenderPresent(self.s) 
 
     def createWin(self, x, y, width, height, title):
