@@ -15,6 +15,7 @@ class CubicGUI:
 
         self.buttons = []
         self.texts = []
+        self.images = []
 
         self.running = True
         
@@ -71,4 +72,9 @@ class CubicGUI:
         self.texts.append(t)
 
         return t
-    
+
+    def createImage(self, x, y, width, heigth, file):
+        i = widgets.CGImage.Image(x, y, width, heigth, file)
+        self.images.append(i)
+
+        return i    
