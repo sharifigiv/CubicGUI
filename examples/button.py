@@ -9,14 +9,14 @@ app.createWin(100, 100, 1080, 720, 'TEST')
 
 B = app.createButton(100, 100, 150, 500, 'ali', testcommand)
 B1 = app.createButton(500, 100, 50, 50, 'gazaz')
-B2 = app.createButton(700, 300, 50, 50, 'akhaz')
+B2 = app.createButton(700, 300, 150, 150, 'akhaz')
 
 while app.running:
-    if B.hovering:
-        B.borderWidth = 20
+    if B2.hovering:
+        B2.borderWidth = 20
 
     else:
-        B.borderWidth = 0
+        B2.borderWidth = 0
 
-    B2.showing = False
+    B.showing = False
     app.update()
