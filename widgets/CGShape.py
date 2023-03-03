@@ -1,18 +1,24 @@
 import sdl2
 
 class Rectangle:
-    def __init__(self, x, y, width, height, color, rn):
+    def __init__(self, x, y, width, height, color, Fillness, rn):
         self.rect = sdl2.SDL_Rect(x, y, width, height)
 
         self.color = color
         self.rn = rn
 
         self.showing = True
+        self.Fill = Fillness
 
     def draw(self):
         sdl2.SDL_SetRenderDrawColor(self.rn, self.color[0], self.color[1], self.color[2], self.color[3])
 
-        sdl2.SDL_RenderDrawRect(self.rn, self.rect)
+        if not self.Fill:
+            sdl2.SDL_RenderDrawRect(self.rn, self.rect)
+
+        else:
+            sdl2.SDL_RenderFillRect(self.rn, self.rect)
+
         sdl2.SDL_SetRenderDrawColor(self.rn, 0, 0, 0, 0)
 
 class Line:
@@ -23,7 +29,7 @@ class Line:
         self.color = color
         self.rn = rn
 
-        elf.showing = True
+        self.showing = True
 
     def draw(self):
         sdl2.SDL_SetRenderDrawColor(self.rn, self.color[0], self.color[1], self.color[2], self.color[3])
