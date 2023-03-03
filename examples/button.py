@@ -5,7 +5,7 @@ def testcommand():
     print("Clicked!")
 
 app = CubicGUI()
-app.createWin(100, 100, 1080, 720, 'TEST')
+app.createWin(100, 100, 1080, 720, 'Button Test')
 
 B = app.createButton(100, 100, 150, 500, 'ali', testcommand)
 B1 = app.createButton(500, 100, 50, 50, 'gazaz')
