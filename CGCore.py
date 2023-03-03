@@ -17,6 +17,8 @@ class CubicGUI:
         self.texts = []
         self.images = []
 
+        self.shapes = []
+
         self.running = True
         
     def update(self):
@@ -90,3 +92,27 @@ class CubicGUI:
         self.images.append(i)
 
         return i    
+
+    def drawRectangle(self, x: int, y: int, width: int, height: int, color: list):
+        """Draw a rectangle"""
+
+        r = widgets.CGShape.Rectangle(x, y, width, height, color, self.s)
+        self.shapes.append(r)
+
+        return r
+
+    def drawCircle(self, x: int, y: int, radius: int, color: list):
+        """Draw a circle"""
+
+        c = widgets.CGShape.Circle(x, y, radius, color, self.s)
+        self.shapes.append(c)
+
+        return c
+
+    def drawLine(self, x1: int, y1: int, x2: int, y2: int, color: list):
+        """Draw a line"""
+
+        l = widgets.CGShape.Line(x1, y1, x2, y2, color, self.s)
+        self.shapes.append(l)
+
+        return l    
