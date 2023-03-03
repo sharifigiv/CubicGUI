@@ -1,3 +1,5 @@
+import sdl2
+
 class Window:
     def __init__(self, x, y, width, height, title):
         self.x = x 

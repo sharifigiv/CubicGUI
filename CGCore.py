@@ -14,6 +14,7 @@ class CubicGUI:
         self.s = sdl2.SDL_Renderer()
 
         self.buttons = []
+        self.texts = []
 
         self.running = True
         
@@ -51,13 +52,19 @@ class CubicGUI:
 
 
     def createWin(self, x, y, width, height, title):
-        self.win = widgets.Window(x, y, width, height, title)
+        self.win = widgets.CGWindow.Window(x, y, width, height, title)
 
         self.s = sdl2.SDL_CreateRenderer(self.win.w, -1, sdl2.SDL_RENDERER_ACCELERATED)
 
     def createButton(self, x, y, width, height, text, command=print):
-        b = widgets.Button(x, y, width, height, text, self.s, command)
-
+        b = widgets.CGButton.Button(x, y, width, height, text, self.s, command)
         self.buttons.append(b)
 
         return b
+
+    def createText(self, x, y, text, color, fontsize):
+        t = widgets.CGText.Text(x, y, fontsize, color, fontsize, self.s)
+        self.texts.append(t)
+
+        return t
+    

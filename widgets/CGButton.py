@@ -1,3 +1,5 @@
+import sdl2
+
 class Button:
     def __init__(self, x, y, width, height, text, rn, command):
         self.showing = True
