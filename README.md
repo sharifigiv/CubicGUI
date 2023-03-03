@@ -8,6 +8,3 @@ A Graphics lib :)
 
 # Text Example
 ![Text Example](assets/screenshots/screenshot3.png?raw=true "Text example")
-
-# Button Example
-![Button Example](assets/screenshots/screencast1.webm?raw=true "Button example")
