@@ -38,6 +38,9 @@ class CubicGUI:
 
                 self.running = False
 
+            if event.type == sdl2.SDL_KEYDOWN:
+                print(event.key.keysym.sym)
+
             for text in self.texts:
                 if text.showing:
                     text.draw()
