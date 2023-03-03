@@ -60,6 +60,10 @@ class CubicGUI:
                 if image.showing:
                     image.draw()
 
+            for shape in self.shapes:
+                if shape.showing:
+                    shape.draw()
+
             sdl2.SDL_RenderPresent(self.s) 
 
     def createWin(self, x: int, y: int, width: int, height: int, title: str):
@@ -100,14 +104,6 @@ class CubicGUI:
         self.shapes.append(r)
 
         return r
-
-    def drawCircle(self, x: int, y: int, radius: int, color: list):
-        """Draw a circle"""
-
-        c = widgets.CGShape.Circle(x, y, radius, color, self.s)
-        self.shapes.append(c)
-
-        return c
 
     def drawLine(self, x1: int, y1: int, x2: int, y2: int, color: list):
         """Draw a line"""
