@@ -60,24 +60,32 @@ class CubicGUI:
 
             sdl2.SDL_RenderPresent(self.s) 
 
-    def createWin(self, x, y, width, height, title):
+    def createWin(self, x: int, y: int, width: int, height: int, title: str):
+        """Creates a New Window"""
+
         self.win = widgets.CGWindow.Window(x, y, width, height, title)
 
         self.s = sdl2.SDL_CreateRenderer(self.win.w, -1, sdl2.SDL_RENDERER_ACCELERATED)
 
-    def createButton(self, x, y, width, height, text, command=print):
+    def createButton(self, x: int, y: int, width: int, height: int, text: str, command=print):
+        """Creates a Button"""
+
         b = widgets.CGButton.Button(x, y, width, height, text, self.s, command)
         self.buttons.append(b)
 
         return b
 
-    def createText(self, x, y, text, color, fontsize):
+    def createText(self, x: int, y: int, text: str, color: list, fontsize: int):
+        """Create a TextField"""
+
         t = widgets.CGText.Text(x, y, text, color, fontsize, self.s)
         self.texts.append(t)
 
         return t
 
-    def createImage(self, x, y, width, heigth, file):
+    def createImage(self, x: int, y: int, width: int, heigth: int, file: str):
+        """Create your Image with given width and height"""
+        
         i = widgets.CGImage.Image(x, y, width, heigth, file, self.s)
         self.images.append(i)
 
