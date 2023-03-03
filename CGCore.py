@@ -16,6 +16,7 @@ class CubicGUI:
         self.buttons = []
         self.texts = []
         self.images = []
+        self.entries = []
 
         self.shapes = []
 
@@ -24,6 +25,8 @@ class CubicGUI:
     def update(self):
         # Events  
         event = sdl2.SDL_Event()
+
+        last_key = ''
         
         while sdl2.SDL_PollEvent(ctypes.byref(event)) != 0:
             mouseX, mouseY = ctypes.c_int(0), ctypes.c_int(0) 
@@ -39,7 +42,15 @@ class CubicGUI:
                 self.running = False
 
             if event.type == sdl2.SDL_KEYDOWN:
-                print(event.key.keysym.sym)
+                last_key = sdl2.SDL_GetKeyName(event.key.keysym.sym)
+
+                for entry in self.entries:
+                    if entry.inCharge:
+                        entry.update(last_key.decode('utf-8'))
+
+            for entry in self.entries:
+                if entry.showing:
+                    entry.draw()
 
             for text in self.texts:
                 if text.showing:
@@ -99,6 +110,14 @@ class CubicGUI:
         self.images.append(i)
 
         return i    
+
+    def createEntry(self, x: int, y: int, width: int, height: int, color: list):
+        """Create an Entry"""
+
+        e = widgets.CGEntry.Entry(x, y, width, height, color, self.s)
+        self.entries.append(e)
+
+        return e
 
     def drawRectangle(self, x: int, y: int, width: int, height: int, color: list, Fillness: bool):
         """Draw a rectangle"""
