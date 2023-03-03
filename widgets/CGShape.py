@@ -5,9 +5,9 @@ class Rectangle:
         pass 
 
 class Circle:
-    def __init__(self, x, y, radius, rn):
+    def __init__(self, x, y, radius, color, rn):
         pass 
 
 class Line:
-    def __init__(self, x1, y1, x2, y2, rn):
+    def __init__(self, x1, y1, x2, y2, color, rn):
         pass
