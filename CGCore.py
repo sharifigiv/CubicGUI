@@ -78,7 +78,7 @@ class CubicGUI:
         return t
 
     def createImage(self, x, y, width, heigth, file):
-        i = widgets.CGImage.Image(x, y, width, heigth, file)
+        i = widgets.CGImage.Image(x, y, width, heigth, file, self.s)
         self.images.append(i)
 
         return i    
