@@ -3,7 +3,7 @@ import ctypes
 import sdl2
 import sdl2.sdlttf
 
-import widgets.CGWindow, widgets.CGButton, widgets.CGText, widgets.CGImage, widgets.CGEntry, widgets.CGShape
+import widgets.CGWindow, widgets.CGButton, widgets.CGText, widgets.CGImage, widgets.CGEntry, widgets.CGShape, widgets.CGImgButton
 
 class CubicGUI:
     def __init__(self):
@@ -110,6 +110,14 @@ class CubicGUI:
         self.buttons.append(b)
 
         return b
+
+    def createImageButton(self, x: int, y: int, width: int, height: int, file: str, command=print):
+        """Creates A Button with an Image"""
+
+        ib = widgets.CGImgButton.ImgButton(x, y, width, height, file, self.s, command)
+        self.buttons.append(ib)
+
+        return ib
 
     def createText(self, x: int, y: int, text: str, color: list, fontsize: int):
         """Create a TextField"""
