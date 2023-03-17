@@ -43,10 +43,12 @@ class CubicGUI:
 
             if event.type == sdl2.SDL_KEYDOWN:
                 last_key = sdl2.SDL_GetKeyName(event.key.keysym.sym)
+                last_key = last_key.decode("utf8")
 
                 for entry in self.entries:
                     if entry.inCharge:
-                        entry.update(last_key.decode('utf-8'))
+                        if len(last_key) == 1:
+                            entry.update(last_key)
 
             for entry in self.entries:
                 if entry.showing:
