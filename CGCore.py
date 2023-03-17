@@ -61,9 +61,7 @@ class CubicGUI:
 
                                 if len(entry.text) == 1:
                                     entry.text = ' '
-                                    entry.renderText()
-
-                            
+                                    entry.renderText()                            
 
             for entry in self.entries:
                 if entry.showing:
@@ -81,6 +79,7 @@ class CubicGUI:
 
                     else:
                         button.hovering = True
+
                 else:
                     button.hovering = False
 
