@@ -50,6 +50,21 @@ class CubicGUI:
                         if len(last_key) == 1:
                             entry.update(last_key)
 
+                        else:
+                            if last_key == 'Space':
+                                entry.update(' ')
+                            
+                            elif last_key == 'Backspace':
+                                if len(entry.text) > 1:
+                                    entry.text = entry.text[:len(entry.text)-1]
+                                    entry.renderText()
+
+                                if len(entry.text) == 1:
+                                    entry.text = ' '
+                                    entry.renderText()
+
+                            
+
             for entry in self.entries:
                 if entry.showing:
                     entry.draw()
