@@ -12,11 +12,11 @@ B1 = app.createButton(500, 100, 50, 50, 'gazaz')
 B2 = app.createButton(700, 300, 150, 150, 'akhaz')
 
 while app.running:
-    if B2.hovering:
-        B2.borderWidth = 20
+    if B1.hovering:
+        B1.borderWidth = 5
 
     else:
-        B2.borderWidth = 0
+        B1.borderWidth = 0
 
     B.showing = False
     app.update()

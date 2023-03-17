@@ -10,10 +10,11 @@ class Button:
         self.width = width
         self.height = height
 
-        self.bg = [255, 255, 255, 255]
+        self.bg = [230, 230, 230, 255]
+        self.hovering_bg = [255, 255, 255, 255]
         self.fg = [0, 0, 0, 255]
 
-        self.borderWidth = 5
+        self.borderWidth = 0
         self.borderColor = [235, 64, 52, 255]
 
         self.fontSize = 16
@@ -37,8 +38,12 @@ class Button:
         self.rectText = sdl2.SDL_Rect(self.x + ((self.width - surfaceText.contents.w) // 2), self.y + ((self.height - surfaceText.contents.h) // 2), surfaceText.contents.w, surfaceText.contents.h)
 
     def draw(self):
-        sdl2.SDL_SetRenderDrawColor(self.rn, self.bg[0], self.bg[1], self.bg[2], self.bg[3])
+        if not self.hovering:
+            sdl2.SDL_SetRenderDrawColor(self.rn, self.bg[0], self.bg[1], self.bg[2], self.bg[3])
         
+        else:
+            sdl2.SDL_SetRenderDrawColor(self.rn, self.hovering_bg[0], self.hovering_bg[1], self.hovering_bg[2], self.hovering_bg[3])
+
         sdl2.SDL_RenderFillRect(self.rn, self.rect)
         sdl2.SDL_RenderCopy(self.rn, self.rntexture , None, self.rectText)
 
