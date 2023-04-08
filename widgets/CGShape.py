@@ -50,22 +50,10 @@ class Circle:
         self.showing = True 
 
     def draw(self):
-        color = '0x' 
 
-        for c in self.color:
-            co = hex(c)[2:]
 
-            if len(co) == 1:
-                co += '0'
-
-            co = co.upper()
-
-            color += co
-
-        print(color)
-
-        sdl2.SDL_SetRenderDrawColor(self.rn, self.color[0], self.color[1], self.color[2], self.color[3])
-        sdl2.sdlgfx.circleColor(self.rn, self.x, self.y, self.r, int(color, 16))
+        # sdl2.SDL_SetRenderDrawColor(self.rn, self.color[0], self.color[1], self.color[2], self.color[3])
+        sdl2.sdlgfx.circleColor(self.rn, self.x, self.y, self.r, 0xFFFF0000)
 
 
         sdl2.SDL_SetRenderDrawColor(self.rn, 0, 0, 0, 0)
