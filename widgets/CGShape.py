@@ -50,10 +50,7 @@ class Circle:
         self.showing = True 
 
     def draw(self):
-
-
         # sdl2.SDL_SetRenderDrawColor(self.rn, self.color[0], self.color[1], self.color[2], self.color[3])
         sdl2.sdlgfx.circleColor(self.rn, self.x, self.y, self.r, 0xFFFF0000)
-
 
         sdl2.SDL_SetRenderDrawColor(self.rn, 0, 0, 0, 0)
