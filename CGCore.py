@@ -162,7 +162,7 @@ class CubicGUI:
     def drawCircle(self, x: int, y: int, radius: int, color: list, Fillness: bool):
         """Draw a circle"""
 
-        c = widgets.CGShape.Circle(x, y, radius, color, self.s)
+        c = widgets.CGShape.Circle(x, y, radius, color, Fillness, self.s)
         self.shapes.append(c)
 
         return c 
