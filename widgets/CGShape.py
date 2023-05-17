@@ -44,8 +44,10 @@ class Circle:
         self.y = y
 
         self.r = radius
+
         self.color = color
         self.color_hex = self.convert_hex()
+
         self.rn = rn
 
         self.showing = True 
@@ -86,8 +88,10 @@ class RoundRectangle:
         self.height = height
 
         self.r = radius
+
         self.color = color
         self.color_hex = self.convert_hex()
+        
         self.rn = rn
 
         self.showing = True 

@@ -154,10 +154,10 @@ class CubicGUI:
     def drawRoundRectangle(self, x: int, y: int, width: int, height: int, radius: int, color: list, Fillness: bool):
         """Draw a round rectangle"""
 
-        r = widgets.CGShape.RoundRectangle(x, y, width, height, radius, color, Fillness, self.s)
-        self.shapes.append(r)
+        rr = widgets.CGShape.RoundRectangle(x, y, width, height, radius, color, Fillness, self.s)
+        self.shapes.append(rr)
 
-        return r
+        return rr
 
     def drawCircle(self, x: int, y: int, radius: int, color: list, Fillness: bool):
         """Draw a circle"""
@@ -170,10 +170,10 @@ class CubicGUI:
     def drawEllipse(self, x: int, y: int, rx: int, ry: int, color: list, Fillness: bool):
         """Draw a ellipse"""
 
-        e = widgets.CGShape.Ellipse(x, y, rx, ry, color, Fillness, self.s)
-        self.shapes.append(e)
+        el = widgets.CGShape.Ellipse(x, y, rx, ry, color, Fillness, self.s)
+        self.shapes.append(el)
 
-        return e
+        return el
 
     def drawLine(self, x1: int, y1: int, x2: int, y2: int, color: list):
         """Draw a line"""
