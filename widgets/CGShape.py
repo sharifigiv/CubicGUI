@@ -45,11 +45,13 @@ class Circle:
 
         self.r = radius
         self.color = color
+        self.color_hex = self.convert_hex()
         self.rn = rn
 
         self.showing = True 
 
-        self.color_hex = '0x'
+    def convert_hex(self):
+        color_hex = '0x'
         hexs = []
 
         for x in self.color:
@@ -61,7 +63,9 @@ class Circle:
             hexs.insert(0, chex)
 
         for h in hexs:
-            self.color_hex += h
+            color_hex += h
+
+        return color_hex
 
     def draw(self):
         sdl2.sdlgfx.circleColor(self.rn, self.x, self.y, self.r, eval(self.color_hex))
