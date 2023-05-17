@@ -72,3 +72,46 @@ class Circle:
         # 0xAABBGGRR
 
         sdl2.SDL_SetRenderDrawColor(self.rn, 0, 0, 0, 0)
+
+class RoundRectangle:
+    def __init__(self, x, y, width, height, radius, color, Fillness, rn):
+        self.x = x
+        self.y = y
+
+        self.width = width 
+        self.height = height
+
+        self.r = radius
+        self.color = color
+        self.color_hex = self.convert_hex()
+        self.rn = rn
+
+        self.showing = True 
+        self.Fillness = Fillness
+
+    def convert_hex(self):
+        color_hex = '0x'
+        hexs = []
+
+        for x in self.color:
+            chex = str(hex(x))[2:]
+
+            if len(chex) == 1:
+                chex = '0' + chex
+
+            hexs.insert(0, chex)
+
+        for h in hexs:
+            color_hex += h
+
+        return color_hex
+
+    
+    def draw(self):
+        if self.Fillness:
+            sdl2.sdlgfx.roundedBoxColor(self.rn, self.x, self.y, self.x + self.width, self.y + self.height, self.r, eval(self.color_hex))
+
+        else:
+            sdl2.sdlgfx.roundedRectangleColor(self.rn, self.x, self.y, self.x + self.width, self.y + self.height, self.r, eval(self.color_hex))
+
+        sdl2.SDL_SetRenderDrawColor(self.rn, 0, 0, 0, 0)
