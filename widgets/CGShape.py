@@ -49,9 +49,22 @@ class Circle:
 
         self.showing = True 
 
+        self.color_hex = '0x'
+        hexs = []
+
+        for x in self.color:
+            chex = str(hex(x))[2:]
+
+            if len(chex) == 1:
+                chex = '0' + chex
+
+            hexs.insert(0, chex)
+
+        for h in hexs:
+            self.color_hex += h
+
     def draw(self):
-        # sdl2.SDL_SetRenderDrawColor(self.rn, self.color[0], self.color[1], self.color[2], self.color[3])
-        sdl2.sdlgfx.circleColor(self.rn, self.x, self.y, self.r, 0xFFFF0000)
+        sdl2.sdlgfx.circleColor(self.rn, self.x, self.y, self.r, eval(self.color_hex))
         # 0xAABBGGRR
 
         sdl2.SDL_SetRenderDrawColor(self.rn, 0, 0, 0, 0)
