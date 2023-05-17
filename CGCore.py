@@ -151,6 +151,14 @@ class CubicGUI:
 
         return r
 
+    def drawRoundRectangle(self, x: int, y: int, width: int, height: int, radius: int, color: list, Fillness: bool):
+        """Draw a rectangle"""
+
+        r = widgets.CGShape.RoundRectangle(x, y, width, height, radius, color, Fillness, self.s)
+        self.shapes.append(r)
+
+        return r
+
     def drawCircle(self, x: int, y: int, radius: int, color: list, Fillness: bool):
         """Draw a circle"""
 
