@@ -39,8 +39,8 @@ class Line:
         sdl2.SDL_SetRenderDrawColor(self.rn, 0, 0, 0, 0)
 
 class Circle:
-    def __init__(self, x, y, radius, color, rn):
-        self.x = x
+    def __init__(self, x, y, radius, color, Fillness, rn):
+        self.x = x 
         self.y = y
 
         self.r = radius
@@ -49,6 +49,7 @@ class Circle:
         self.rn = rn
 
         self.showing = True 
+        self.Fillness = Fillness
 
     def convert_hex(self):
         color_hex = '0x'
@@ -68,8 +69,11 @@ class Circle:
         return color_hex
 
     def draw(self):
-        sdl2.sdlgfx.circleColor(self.rn, self.x, self.y, self.r, eval(self.color_hex))
-        # 0xAABBGGRR
+        if not self.Fillness:
+            sdl2.sdlgfx.circleColor(self.rn, self.x, self.y, self.r, eval(self.color_hex))
+        
+        else:
+            sdl2.sdlgfx.filledCircleColor(self.rn, self.x, self.y, self.r, eval(self.color_hex))
 
         sdl2.SDL_SetRenderDrawColor(self.rn, 0, 0, 0, 0)
 
