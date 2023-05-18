@@ -91,7 +91,7 @@ class RoundRectangle:
 
         self.color = color
         self.color_hex = self.convert_hex()
-        
+
         self.rn = rn
 
         self.showing = True 
@@ -163,5 +163,28 @@ class Ellipse:
 
         else:
             sdl2.sdlgfx.filledEllipseColor(self.rn, self.x, self.y, self.rx, self.ry, eval(self.color_hex))
+
+        sdl2.SDL_SetRenderDrawColor(self.rn, 0, 0, 0, 0)
+
+class Polygon:
+    def __init__(self, x, y, n, color, Fillness, rn):
+        self.x = x
+        self.y = y
+
+        self.n = n
+
+        self.color = color
+        self.color_hex = self.convert_hex()
+
+        self.rn = rn
+
+        self.showing = True 
+        self.Fillness = Fillness
+
+    def draw(self):
+        if not self.Fillness:
+            sdl2.sdlgfx.polygonColor(self.rn, self.x, self.y, self.n, eval(self.color_hex))
+        else:
+            sdl2.sdlgfx.filledpolygonColor(self.rn, self.x, self.y, self.n, eval(self.color_hex))
 
         sdl2.SDL_SetRenderDrawColor(self.rn, 0, 0, 0, 0)
