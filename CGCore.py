@@ -151,6 +151,15 @@ class CubicGUI:
 
         return r
 
+    def drawPolygon(self, x: int, y: int, n: int, color: list, Fillness: bool):
+        """Draw a polygon"""
+
+        p = widgets.CGShape.Polygon(x, y, n, color, Fillness, self.s)
+        self.shapes.append(p)
+
+        return p
+
+
     def drawRoundRectangle(self, x: int, y: int, width: int, height: int, radius: int, color: list, Fillness: bool):
         """Draw a round rectangle"""
 
